@@ -3,67 +3,54 @@ Treehouse FSJS Techdegree:
 project 1 - A Random Quote Generator
 ******************************************/
 
-// Study guide for this project - https://drive.google.com/file/d/1s5grutGuQFwJcQP8bFwEI69Q8FCkGdDk/view?usp=sharing
-
-
 /***
-  Create the array of quote objects and name it `quotes`.
-  Add at least five quote objects to the `quotes` array.
-  Give each quote object a `quote` and `source` property.
-  Add the `citation` property to at least one object in the array.
-  Add the `year` property to at least one object in the array.
-  Use console.log() to log your array of quotes to the console.
+an array of quotes that are there own objects with key:value pairs
 ***/
+var quotes=[
+  {quote: 'Your time is limited, so dont waste it living someone elses life. Dont be trapped by dogma – which is living with the results of other peoples thinking.', source: 'Steve Jobs', citation: 'Speech',year: '2001'},
+  {quote: 'If you set your goals ridiculously high and its a failure, you will fail above everyone elses success.',source: 'James Cameron', year: '2005'},
+  {quote: "I'm going to make him an offer he can't refuse.",source: 'The Godfather',year: '1972'},
+  {quote: 'Page Not Found',source: '404 warning', year: '1989'},
+  {quote: 'Feed me Seymour',source: 'Audrey 2',citation: 'Song', year: '1986'}];
 
-var quotesList = [
-  ['Your time is limited, so dont waste it living someone elses life. Dont be trapped by dogma – which is living with the results of other peoples thinking.', 'Steve Jobs', '2001'],
-  ['If you set your goals ridiculously high and its a failure, you will fail above everyone elses success.', 'James Cameron', '2005'],
-  ['What are you going to do, stab me?','Unknown','Date Unknown'],
-  ['Page Not Found', '404', '1989']
-];
-
+console.log(quotes);
 
 
 /***
-  Create the `getRandomQuote` function to:
-   - Create a variable to store a random number
-   - Cse the random number to `return` a random quote object from the `quotes` array.
+create the function that will select the number to index by
 ***/
 function getRandomQuote () {
   var randomNumber = 0;
-  randomNumber = Math.floor(Math.random() * 4);
+  randomNumber = Math.floor(Math.random() * 5);
   return randomNumber;
 
 };
-
+console.log(getRandomQuote());
 
 
 /***
-  Create the `printQuote` function to:
-   - Call the `getRandomQuote` function and assign it to a variable.
-   - Create a variable for the HTML string and set it equal to an empty string.
-   - Use the HTML template in the instructions or the markup in the index.html file, AND
-     the random quote vairable to build your HTML string.
-   - Add the quote and source section to the HTML string.
-   - Use an if statement to check for the citation property before adding it to the HTML string.
-   - Use an if statement to check for the year property before adding it to the HTML string.
-   - Don't forget to close that final `p` tag.
-   - Set the `innerHTML` of the `quote-box` div to the HTML string.
+  Create the `printQuote` function. This function then:
+
+  get an index number
+  concatinates our quote and source
+  then checks if their is a citation and adds it if there is
+  then checks if there is a year and adds it if there is
+  grabs the quote bocx element
+  and makes our string the inner html for it
 ***/
 
 function printQuote() {
   var quoteIndex = getRandomQuote();
   var htmlString = '';
+  htmlString += '<p class="quote"> ' + quotes[quoteIndex]['quote'] + '</p> ' + '<p class ="source"> ' + quotes[quoteIndex]['source'];
 
-  htmlString += '<p class="quote">';
+  if(quotes[quoteIndex]['citation'] != undefined ){
+    htmlString += '<span class="citation"> ' + quotes[quoteIndex]['citation'] + '</span> ';
+  }
 
-  htmlString += quotesList[quoteIndex][0] + '</p> ';
-  if( htmlString.length = 2 )
-    htmlString += '<p class="source">' + quotesList[quoteIndex][1] +'</p>'
-
-  if( htmlString.length = 3 )
-    htmlString += '<p class="source">' + quotesList[quoteIndex][2] + '</p>'
-
+  if(quotes[quoteIndex]['year'] != undefined ){
+    htmlString += '<span class="year">' + quotes[quoteIndex]['year'] + '</span>' + '</p>';
+  }
   var outPutDiv = document.getElementById('quote-box');
 
   outPutDiv.innerHTML = htmlString;
@@ -72,13 +59,7 @@ function printQuote() {
 printQuote();
 
 /***
-  When the "Show another quote" button is clicked, the event listener
-  below will be triggered, and it will call, or "invoke", the `printQuote`
-  function. So do not make any changes to the line of code below this
-  comment.
+  When the "Show another quote" button is clicked, the event listener catches it and runs our print quote script
 ***/
 
 document.getElementById('loadQuote').addEventListener("click", printQuote, false);
-
-
-// Remember to delete the comments that came with this file, and replace them with your own code comments.
